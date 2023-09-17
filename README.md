@@ -27,3 +27,39 @@
 ![BOTTOM](img/bottom.jpg)
 
 ![CH347扩展](img/CH347扩展.jpg)
+
+## 测试
+
+![测量ESP32模块](img/test-dut-esp32.jpg)
+
+简单测试：
+
+```python
+sensor = INA226()
+print(sensor.get_config())
+sensor.set_alert_limit(0x1000)
+print(sensor.get_calibration())
+print(sensor.get_shunt_voltage(), 'uV')
+print(sensor.get_bus_voltage(), 'mV')
+print(sensor.get_current(), 'uA')
+print(sensor.get_power(), 'mW')
+sensor.set_mask_enable('SOL')
+print(sensor.get_mask_enable())
+sensor.close()
+```
+
+输出：
+
+```powershell
+{'reset': False, 'avg': 0, 'vbus_ct': 4, 'vsh_ct': 4, 'mode': 7}
+2048
+522.5 uV
+5040.0 mV
+26125.0 uA
+134.375 mW
+{'SOL': True, 'SUL': False, 'BOL': False, 'BUL': False, 'POL': False, 'CNVR': False, 'AFF': False, 'CVRF': True, 'OVF': False, 'APOL': False, 'LEN': False}
+```
+
+动态测试：
+
+![10Hz采样率测量ESP32模块](img/test-dut-esp32.gif)
